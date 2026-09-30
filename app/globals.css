@@ -1,0 +1,283 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+:root {
+  /* Primary — Indigo */
+  --indigo-50: #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #4338ca;
+  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+
+  /* Neutrals — Slate */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* Semantic */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --success-dark: #065f46;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --error: #ef4444;
+  --error-hover: #dc2626;
+  --error-light: #fee2e2;
+  --error-dark: #991b1b;
+  --info: #3b82f6;
+  --info-light: #dbeafe;
+  --info-dark: #1e40af;
+
+  /* Typography — Inter */
+  --text-display-size: 40px;
+  --text-display-weight: 700;
+  --text-heading-1-size: 32px;
+  --text-heading-1-weight: 700;
+  --text-heading-2-size: 24px;
+  --text-heading-2-weight: 700;
+  --text-heading-3-size: 20px;
+  --text-heading-3-weight: 600;
+  --text-heading-4-size: 16px;
+  --text-heading-4-weight: 600;
+  --text-body-large-size: 16px;
+  --text-body-large-weight: 400;
+  --text-body-size: 14px;
+  --text-body-weight: 400;
+  --text-body-small-size: 13px;
+  --text-body-small-weight: 400;
+  --text-caption-size: 12px;
+  --text-caption-weight: 500;
+  --text-overline-size: 11px;
+  --text-overline-weight: 600;
+
+  /* Spacing Scale — Figma 4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64 */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+
+  /* Border Radius — 0 / 4 / 8 / 12 / 16 / Full */
+  --radius-0: 0px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-full: 9999px;
+
+  /* Elevation / Shadows */
+  --elevation-sm: 0px 1px 2px 0px #0000000a;
+  --elevation-md: 0px 4px 6px -1px #0000000f;
+  --elevation-lg: 0px 10px 15px -3px #00000014;
+  --elevation-xl: 0px 20px 25px -5px #0000001a;
+}
+
+@theme inline {
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-300: var(--indigo-300);
+  --color-indigo-400: var(--indigo-400);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+  --color-success-dark: var(--success-dark);
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+  --color-warning-dark: var(--warning-dark);
+  --color-error: var(--error);
+  --color-error-hover: var(--error-hover);
+  --color-error-light: var(--error-light);
+  --color-error-dark: var(--error-dark);
+  --color-info: var(--info);
+  --color-info-light: var(--info-light);
+  --color-info-dark: var(--info-dark);
+
+  --font-sans: var(--font-inter);
+
+  --spacing-space-4: var(--space-4);
+  --spacing-space-8: var(--space-8);
+  --spacing-space-12: var(--space-12);
+  --spacing-space-16: var(--space-16);
+  --spacing-space-20: var(--space-20);
+  --spacing-space-24: var(--space-24);
+  --spacing-space-32: var(--space-32);
+  --spacing-space-40: var(--space-40);
+  --spacing-space-48: var(--space-48);
+  --spacing-space-64: var(--space-64);
+
+  --radius-ds-0: var(--radius-0);
+  --radius-ds-4: var(--radius-4);
+  --radius-ds-8: var(--radius-8);
+  --radius-ds-12: var(--radius-12);
+  --radius-ds-16: var(--radius-16);
+  --radius-ds-full: var(--radius-full);
+
+  --shadow-ds-sm: var(--elevation-sm);
+  --shadow-ds-md: var(--elevation-md);
+  --shadow-ds-lg: var(--elevation-lg);
+  --shadow-ds-xl: var(--elevation-xl);
+}
+
+@utility text-display {
+  font-size: var(--text-display-size);
+  font-weight: var(--text-display-weight);
+}
+
+@utility text-heading-1 {
+  font-size: var(--text-heading-1-size);
+  font-weight: var(--text-heading-1-weight);
+}
+
+@utility text-heading-2 {
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--text-heading-2-weight);
+}
+
+@utility text-heading-3 {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--text-heading-3-weight);
+}
+
+@utility text-heading-4 {
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--text-heading-4-weight);
+}
+
+@utility text-body-large {
+  font-size: var(--text-body-large-size);
+  font-weight: var(--text-body-large-weight);
+}
+
+@utility text-body {
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+}
+
+@utility text-body-small {
+  font-size: var(--text-body-small-size);
+  font-weight: var(--text-body-small-weight);
+}
+
+@utility text-caption {
+  font-size: var(--text-caption-size);
+  font-weight: var(--text-caption-weight);
+}
+
+@utility text-overline {
+  font-size: var(--text-overline-size);
+  font-weight: var(--text-overline-weight);
+  text-transform: uppercase;
+}
+
+/* Users table: fixed desktop tracks at 1200px+, shrinkable tracks below. */
+.users-table-grid {
+  grid-template-columns:
+    16px minmax(160px, 220px) minmax(90px, 110px) minmax(90px, 110px)
+    minmax(90px, 110px) minmax(90px, 110px) minmax(64px, 1fr);
+}
+
+@media (min-width: 1200px) {
+  .users-table-grid {
+    grid-template-columns: 16px 220px 110px 110px 110px 110px minmax(80px, 1fr);
+  }
+}
+
+/* Transactions table: no checkbox; actions take the leftover width. */
+.transactions-table-grid {
+  grid-template-columns:
+    minmax(96px, 110px) minmax(140px, 180px) minmax(80px, 100px)
+    minmax(88px, 110px) minmax(90px, 110px) minmax(140px, 160px)
+    minmax(48px, 1fr);
+}
+
+@media (min-width: 1200px) {
+  .transactions-table-grid {
+    grid-template-columns: 110px 180px 100px 110px 110px 160px minmax(64px, 1fr);
+  }
+}
+
+/* Bookings table: actions take the leftover width. */
+.bookings-table-grid {
+  grid-template-columns:
+    minmax(96px, 110px) minmax(140px, 170px) minmax(150px, 180px)
+    minmax(140px, 160px) minmax(64px, 80px) minmax(90px, 110px)
+    minmax(72px, 90px) minmax(56px, 1fr);
+}
+
+@media (min-width: 1200px) {
+  .bookings-table-grid {
+    grid-template-columns: 110px 170px 180px 160px 80px 110px 90px minmax(72px, 1fr);
+  }
+}
+
+/* Dashboard recent transactions: fits the 752px chart column. */
+.dashboard-transactions-grid {
+  grid-template-columns: 120px minmax(0, 132px) 80px 96px 100px minmax(32px, 1fr);
+}
+
+@layer base {
+  a,
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="link"],
+  [role="checkbox"]:not(:disabled),
+  [role="menuitem"],
+  summary,
+  label {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+/* Lucide icons are filled on mobile. Detail pages, search, the eye, and custom icons stay stroked. */
+@media (width < 48rem) {
+  .lucide {
+    fill: currentColor;
+  }
+
+  .lucide.lucide-eye,
+  .lucide.lucide-search,
+  [data-mobile-outline] .lucide {
+    fill: none;
+  }
+}
