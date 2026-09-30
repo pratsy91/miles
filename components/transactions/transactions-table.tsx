@@ -70,7 +70,7 @@ function TransactionsTableRow({ transaction }: { transaction: TransactionRow }) 
         <Link
           href={`/transactions/${transaction.id.slice(1)}`}
           aria-label={`View ${transaction.id}`}
-          className="text-slate-600"
+          className="ml-[35px] text-slate-600"
         >
           <Eye aria-hidden className="size-4" />
         </Link>
