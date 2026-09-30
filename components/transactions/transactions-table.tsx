@@ -3,6 +3,7 @@ import { DataEmpty, ListPagination } from "@/components/ui/data-state";
 import { Avatar } from "@/components/ui/avatar";
 import { Eye } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const HEADER_CELL =
   "text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
@@ -38,10 +39,13 @@ const TYPE_STATUS = {
 } as const;
 
 function TransactionsTableRow({ transaction }: { transaction: TransactionRow }) {
+  const router = useRouter();
+
   return (
     <div
       role="row"
-      className="transactions-table-grid grid h-14 items-center gap-4 border-b border-slate-200 px-3"
+      onClick={() => router.push(`/transactions/${transaction.id.slice(1)}`)}
+      className="transactions-table-grid grid h-14 cursor-pointer items-center gap-4 border-b border-slate-200 px-3"
     >
       <span className="text-[13px] font-semibold leading-none tracking-normal text-slate-900">
         {transaction.id}

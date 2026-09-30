@@ -3,6 +3,7 @@ import { DataEmpty, ListPagination } from "@/components/ui/data-state";
 import { Avatar } from "@/components/ui/avatar";
 import { Eye, Pencil } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const HEADER_CELL =
   "text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
@@ -22,10 +23,13 @@ type BookingRow = {
 };
 
 function BookingsTableRow({ booking }: { booking: BookingRow }) {
+  const router = useRouter();
+
   return (
     <div
       role="row"
-      className="bookings-table-grid grid h-14 items-center gap-4 border-b border-slate-200 px-3"
+      onClick={() => router.push(`/bookings/${booking.id.slice(1)}`)}
+      className="bookings-table-grid grid h-14 cursor-pointer items-center gap-4 border-b border-slate-200 px-3"
     >
       <span className="text-[13px] font-semibold leading-none tracking-normal text-slate-900">
         {booking.id}

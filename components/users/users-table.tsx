@@ -6,6 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const HEADER_CELL =
   "text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
@@ -63,7 +64,10 @@ function UserSelectControl({
       aria-checked={checked}
       aria-label={label}
       disabled={disabled}
-      onClick={onChange}
+      onClick={(event) => {
+        event.stopPropagation();
+        onChange();
+      }}
       className={cn(
         "flex size-4 shrink-0 items-center justify-center text-indigo-600",
         disabled && "cursor-not-allowed opacity-40",
@@ -87,12 +91,15 @@ function UsersTableRow({
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
+  const router = useRouter();
+
   return (
     <div
       role="row"
       aria-selected={Boolean(user.selected)}
+      onClick={() => router.push(`/users/${user.id}`)}
       className={cn(
-        "users-table-grid grid h-14 items-center gap-4 border-b border-slate-200 px-3",
+        "users-table-grid grid h-14 cursor-pointer items-center gap-4 border-b border-slate-200 px-3",
         user.selected && "bg-indigo-50",
       )}
     >
@@ -135,7 +142,10 @@ function UsersTableRow({
         <button
           type="button"
           aria-label={`Delete ${user.name}`}
-          onClick={() => onDelete(user.id)}
+          onClick={(event) => {
+            event.stopPropagation();
+            onDelete(user.id);
+          }}
           className="text-error"
         >
           <Trash2 aria-hidden className="size-4" />
