@@ -2,6 +2,7 @@ import { CpuIcon } from "@/components/icons/cpu-icon";
 import { Avatar } from "@/components/ui/avatar";
 import { SidebarNavItem } from "@/components/ui/sidebar-nav-item";
 import { cn } from "cn";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 const NAV_ITEMS = [
@@ -26,14 +27,14 @@ function Sidebar({ footer, className }: SidebarProps) {
       )}
     >
       <div className="flex flex-col gap-6">
-        <div className="hidden items-center gap-2.5 md:flex">
+        <Link href="/" className="hidden items-center gap-2.5 no-underline md:flex">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-white">
             <CpuIcon className="size-4.5" />
           </span>
           <span className="font-sans text-[18px] font-bold leading-none tracking-normal text-white">
             AdminHub
           </span>
-        </div>
+        </Link>
         <nav className="flex flex-col gap-space-4" aria-label="Main">
           {NAV_ITEMS.map((item) => (
             <SidebarNavItem key={item.href} href={item.href} icon={item.icon}>

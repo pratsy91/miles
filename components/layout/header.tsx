@@ -1,7 +1,6 @@
 "use client";
 
 import { BellIcon } from "@/components/icons/bell-icon";
-import { CpuIcon } from "@/components/icons/cpu-icon";
 import { ConsoleSearch } from "@/components/layout/console-search";
 import { Avatar } from "@/components/ui/avatar";
 import { useAppDispatch } from "@/hooks/use-redux";
@@ -151,7 +150,11 @@ function NotificationButton({
               data-notifications
               role="dialog"
               aria-label="Notifications"
-              style={{ top: position.top, left: position.left, width: position.width }}
+              style={{
+                top: position.top,
+                left: position.left,
+                width: position.width,
+              }}
               className="fixed z-50 rounded-lg border border-solid border-slate-200 bg-white p-4 shadow-ds-md"
             >
               <p className="font-sans text-[14px] font-bold leading-none tracking-normal text-slate-900">
@@ -193,9 +196,17 @@ function Header() {
   const mobileDetail = /^\/users\/[^/]+$/.test(pathname)
     ? { href: "/users", title: "User Detail", action: "edit" as const }
     : /^\/transactions\/[^/]+$/.test(pathname)
-      ? { href: "/transactions", title: "Transaction Detail", action: "print" as const }
+      ? {
+          href: "/transactions",
+          title: "Transaction Detail",
+          action: "print" as const,
+        }
       : /^\/bookings\/[^/]+$/.test(pathname)
-        ? { href: "/bookings", title: "Booking Detail", action: "more" as const }
+        ? {
+            href: "/bookings",
+            title: "Booking Detail",
+            action: "more" as const,
+          }
         : null;
   const styledDetailBar =
     mobileDetail?.action === "edit" ||
@@ -204,121 +215,121 @@ function Header() {
 
   return (
     <>
-    <header
-      data-slot="header"
-      className="hidden h-17.5 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 md:flex"
-    >
-      <div className="flex min-w-0 flex-col gap-space-4">
-        <h1 className="truncate text-[18px] font-bold leading-none tracking-normal text-slate-900">
-          {title}
-        </h1>
-        <p className="truncate text-[12px] font-normal leading-none tracking-normal text-slate-500">
-          {formatHeaderDate(new Date())}
-        </p>
-      </div>
-
-      <div className="flex shrink-0 items-center gap-4">
-        <div className="max-[851px]:hidden">
-          <ConsoleSearch />
+      <header
+        data-slot="header"
+        className="hidden h-17.5 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 md:flex"
+      >
+        <div className="flex min-w-0 flex-col gap-space-4">
+          <h1 className="truncate text-[18px] font-bold leading-none tracking-normal text-slate-900">
+            {title}
+          </h1>
+          <p className="truncate text-[12px] font-normal leading-none tracking-normal text-slate-500">
+            {formatHeaderDate(new Date())}
+          </p>
         </div>
 
-        <NotificationButton className="relative flex size-10 items-center justify-center rounded-[20px] border border-solid border-slate-200 bg-white">
-          <Bell aria-hidden className="size-5 text-slate-600" />
-        </NotificationButton>
-
-        <Avatar size="md" src="/sarah.png" alt="Sarah Jenkins">
-          SJ
-        </Avatar>
-      </div>
-    </header>
-    <header
-      data-slot="mobile-header"
-      {...(mobileDetail ? { "data-mobile-outline": "" } : {})}
-      className={`box-border flex h-14 w-full shrink-0 items-center justify-between border-b border-solid border-slate-200 bg-white px-4 md:hidden ${
-        styledDetailBar ? "py-2" : ""
-      }`}
-    >
-      {mobileDetail ? (
-        <>
-          <div className="flex min-w-0 flex-1 items-center gap-3">
-            <Link
-              href={mobileDetail.href}
-              aria-label={`Back to ${mobileDetail.href.slice(1)}`}
-              className="flex size-5 shrink-0 items-center justify-center text-slate-900"
-            >
-              <ArrowLeft aria-hidden className="size-5" />
-            </Link>
-            <h1 className="min-w-0 truncate text-left font-sans text-[16px] font-bold leading-none tracking-normal text-slate-900">
-              {mobileDetail.title}
-            </h1>
+        <div className="flex shrink-0 items-center gap-4">
+          <div className="max-[851px]:hidden">
+            <ConsoleSearch />
           </div>
-          <button
-            type="button"
-            aria-label={
-              mobileDetail.action === "print"
-                ? "Print receipt"
-                : mobileDetail.action === "more"
-                  ? "More actions"
-                  : "Edit user"
-            }
-            onClick={() => {
-              if (mobileDetail.action === "print") {
-                window.dispatchEvent(new Event("miles-print-transaction"));
-              }
-            }}
-            className={
-              styledDetailBar
-                ? "box-border flex size-7 shrink-0 items-center justify-center rounded-[20px] border border-solid border-slate-200 p-1.5 text-slate-700"
-                : "flex size-8 items-center justify-center rounded-full border border-solid border-slate-200 text-slate-700"
-            }
-          >
-            {mobileDetail.action === "print" ? (
-              <Printer aria-hidden className="size-4" />
-            ) : mobileDetail.action === "more" ? (
-              <Ellipsis aria-hidden className="size-4" />
-            ) : (
-              <Pencil aria-hidden className="size-4" />
-            )}
-          </button>
-        </>
-      ) : (
-        <>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            aria-label="Open menu"
-            className="flex size-5 items-center justify-center text-slate-800"
-            onClick={() => dispatch(toggleSidebar())}
-          >
-            <Menu aria-hidden className="size-5" />
-          </button>
-          <span className="flex items-center gap-2.5">
-            <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-indigo-600 text-white">
-              <CpuIcon className="size-4" />
-            </span>
-            <span className="font-sans text-[16px] font-bold leading-none tracking-normal text-slate-900">
-              AdminHub
-            </span>
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <NotificationButton
-            className="relative box-border flex size-8 items-center justify-center rounded-2xl border border-solid border-slate-200 bg-white text-slate-600"
-            badgeClassName="-top-0.5 -right-0.5 size-[14px] rounded-[7px]"
-          >
-            <BellIcon />
+
+          <NotificationButton className="relative flex size-10 items-center justify-center rounded-[20px] border border-solid border-slate-200 bg-white">
+            <Bell aria-hidden className="size-5 text-slate-600" />
           </NotificationButton>
-          <Avatar
-            src="/sarah.png"
-            alt="Sarah Jenkins"
-            className="size-8 rounded-2xl text-[12px]"
-          >
+
+          <Avatar size="md" src="/sarah.png" alt="Sarah Jenkins">
             SJ
           </Avatar>
         </div>
-        </>
-      )}
-    </header>
+      </header>
+      <header
+        data-slot="mobile-header"
+        {...(mobileDetail ? { "data-mobile-outline": "" } : {})}
+        className={`box-border flex h-14 w-full shrink-0 items-center justify-between border-b border-solid border-slate-200 bg-white px-4 md:hidden ${
+          styledDetailBar ? "py-2" : ""
+        }`}
+      >
+        {mobileDetail ? (
+          <>
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <Link
+                href={mobileDetail.href}
+                aria-label={`Back to ${mobileDetail.href.slice(1)}`}
+                className="flex size-5 shrink-0 items-center justify-center text-slate-900"
+              >
+                <ArrowLeft aria-hidden className="size-5" />
+              </Link>
+              <h1 className="min-w-0 truncate text-left font-sans text-[16px] font-bold leading-none tracking-normal text-slate-900">
+                {mobileDetail.title}
+              </h1>
+            </div>
+            <button
+              type="button"
+              aria-label={
+                mobileDetail.action === "print"
+                  ? "Print receipt"
+                  : mobileDetail.action === "more"
+                    ? "More actions"
+                    : "Edit user"
+              }
+              onClick={() => {
+                if (mobileDetail.action === "print") {
+                  window.dispatchEvent(new Event("miles-print-transaction"));
+                }
+              }}
+              className={
+                styledDetailBar
+                  ? "box-border flex size-7 shrink-0 items-center justify-center rounded-[20px] border border-solid border-slate-200 p-1.5 text-slate-700"
+                  : "flex size-8 items-center justify-center rounded-full border border-solid border-slate-200 text-slate-700"
+              }
+            >
+              {mobileDetail.action === "print" ? (
+                <Printer aria-hidden className="size-4" />
+              ) : mobileDetail.action === "more" ? (
+                <Ellipsis aria-hidden className="size-4" />
+              ) : (
+                <Pencil aria-hidden className="size-4" />
+              )}
+            </button>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="flex size-5 items-center justify-center text-slate-800"
+                onClick={() => dispatch(toggleSidebar())}
+              >
+                <Menu aria-hidden className="size-5" />
+              </button>
+              <Link href="/" className="flex items-center gap-2.5 no-underline">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-[6px] bg-[#4F46E5]">
+                  <span aria-hidden className="size-3 bg-white" />
+                </span>
+                <span className="font-sans text-[16px] font-bold leading-none tracking-normal text-slate-900">
+                  AdminHub
+                </span>
+              </Link>
+            </div>
+            <div className="flex items-center gap-3">
+              <NotificationButton
+                className="relative box-border flex size-8 items-center justify-center rounded-2xl border border-solid border-slate-200 bg-white text-slate-600"
+                badgeClassName="-top-0.5 -right-0.5 size-[14px] rounded-[7px]"
+              >
+                <BellIcon />
+              </NotificationButton>
+              <Avatar
+                src="/sarah.png"
+                alt="Sarah Jenkins"
+                className="size-8 rounded-2xl text-[12px]"
+              >
+                SJ
+              </Avatar>
+            </div>
+          </>
+        )}
+      </header>
     </>
   );
 }
