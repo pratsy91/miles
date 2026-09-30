@@ -246,6 +246,19 @@
   }
 }
 
+/* Transaction detail ledger: same shrinkable-track pattern as the other tables. */
+.ledger-entries-grid {
+  grid-template-columns:
+    minmax(100px, 120px) minmax(160px, 200px) minmax(80px, 100px)
+    minmax(100px, 120px) minmax(150px, 1fr);
+}
+
+@media (min-width: 1200px) {
+  .ledger-entries-grid {
+    grid-template-columns: 120px 200px 100px 120px minmax(160px, 1fr);
+  }
+}
+
 /* Dashboard recent transactions: shrinkable tracks, same pattern as the other tables. */
 .dashboard-transactions-grid {
   grid-template-columns:

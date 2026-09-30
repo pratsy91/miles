@@ -21,6 +21,24 @@ const TYPE_LABELS = {
   transfer: "Transfer",
 } as const;
 
+const LEDGER_ENTRIES = [
+  {
+    id: "#TXN-7102",
+    method: "Visa Card (*4582)",
+    amount: "$120.00",
+    settledAt: "Aug 15, 2024 10:14",
+  },
+  {
+    id: "#TXN-5921",
+    method: "Direct PayPal Link",
+    amount: "$350.00",
+    settledAt: "Jul 02, 2024 16:50",
+  },
+] as const;
+
+const LEDGER_HEADER =
+  "whitespace-nowrap text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
+
 function findTransaction(transactions: StoredTransaction[], id: string) {
   const decoded = decodeURIComponent(id);
   const normalized = decoded.startsWith("#") ? decoded : `#${decoded}`;
@@ -56,11 +74,6 @@ function TransactionDetailScreen({ id }: { id: string }) {
     window.addEventListener("miles-print-transaction", onPrint);
     return () => window.removeEventListener("miles-print-transaction", onPrint);
   }, [transaction]);
-  const related = transaction
-    ? transactions
-        ?.filter((item) => item.userId === transaction.userId && item.id !== transaction.id)
-        .slice(0, 4) ?? []
-    : [];
 
   if (loading) {
     return (
@@ -139,14 +152,14 @@ function TransactionDetailScreen({ id }: { id: string }) {
           </span>
         </nav>
 
-        <section className="flex min-h-30 w-full flex-col justify-between gap-4 rounded-lg border border-solid border-slate-200 bg-white p-6 sm:h-30 sm:flex-row sm:items-center">
+        <section className="flex min-h-30 w-full min-w-0 flex-col justify-between gap-4 rounded-lg border border-solid border-slate-200 bg-white p-6 xl:h-30 xl:flex-row xl:items-center">
           <div className="flex min-w-0 items-center gap-5">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-success-light">
               <ArrowLeftRight aria-hidden className="size-6 text-success" />
             </span>
             <div className="flex min-w-0 flex-col gap-2">
               <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-[22px] font-bold leading-none tracking-normal text-slate-900">
+                <h2 className="min-w-0 text-[22px] font-bold leading-none tracking-normal text-slate-900">
                   Transaction {transaction.id}
                 </h2>
                 {transaction.status === "completed" ? (
@@ -155,7 +168,7 @@ function TransactionDetailScreen({ id }: { id: string }) {
                   <StatusBadge status={transaction.status} />
                 )}
               </div>
-              <p className="text-[14px] font-normal leading-none tracking-normal text-slate-500">
+              <p className="text-[14px] font-normal leading-5 tracking-normal break-words text-slate-500">
                 Reference {transaction.reference}
                 <span aria-hidden className="px-1.5">
                   •
@@ -165,7 +178,7 @@ function TransactionDetailScreen({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex shrink-0 flex-wrap items-center gap-3">
             <Button
               variant="ghost"
               size="md"
@@ -277,49 +290,36 @@ function TransactionDetailScreen({ id }: { id: string }) {
             Related Customer Ledger Entries
           </h3>
           <div className="w-full overflow-x-auto">
-            <div className="min-w-160">
-              <div className="grid h-9.75 grid-cols-[120px_120px_100px_120px_minmax(100px,1fr)] items-center gap-4 rounded-md bg-slate-50 px-3">
+            <div className="w-full min-w-min">
+              <div className="ledger-entries-grid grid h-9.75 items-center gap-4 rounded-md bg-slate-50 px-3">
                 {["Transaction ID", "Gateway Method", "Amount", "Status", "Settled At"].map(
                   (header) => (
-                    <span
-                      key={header}
-                      className="text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase"
-                    >
+                    <span key={header} className={LEDGER_HEADER}>
                       {header}
                     </span>
                   ),
                 )}
               </div>
-              {related.length === 0 ? (
-                <p className="px-3 py-4 text-[13px] leading-none text-slate-500">
-                  No other ledger entries for this customer.
-                </p>
-              ) : (
-                related.map((row) => (
-                  <div
-                    key={row.id}
-                    className="grid h-11.25 grid-cols-[120px_120px_100px_120px_minmax(100px,1fr)] items-center gap-4 border-b border-slate-200 px-3"
-                  >
-                    <span className="truncate text-[13px] font-semibold leading-none tracking-normal text-slate-900">
-                      {row.id}
-                    </span>
-                    <span className="truncate text-[13px] font-normal leading-none tracking-normal text-slate-900">
-                      {row.method}
-                    </span>
-                    <span
-                      className={`text-[13px] font-semibold leading-none tracking-normal ${row.negative ? "text-error" : "text-slate-900"}`}
-                    >
-                      {row.amount}
-                    </span>
-                    <StatusBadge status={row.status === "completed" ? "info" : row.status}>
-                      {row.status === "completed" ? "Completed" : undefined}
-                    </StatusBadge>
-                    <span className="text-[13px] font-normal leading-none tracking-normal text-slate-500">
-                      {row.dateTime}
-                    </span>
-                  </div>
-                ))
-              )}
+              {LEDGER_ENTRIES.map((row) => (
+                <div
+                  key={row.id}
+                  className="ledger-entries-grid grid h-11.25 items-center gap-4 border-b border-slate-200 px-3"
+                >
+                  <span className="whitespace-nowrap text-[13px] font-semibold leading-none tracking-normal text-slate-900">
+                    {row.id}
+                  </span>
+                  <span className="whitespace-nowrap text-[13px] font-normal leading-none tracking-normal text-slate-900">
+                    {row.method}
+                  </span>
+                  <span className="whitespace-nowrap text-[13px] font-semibold leading-none tracking-normal text-slate-900">
+                    {row.amount}
+                  </span>
+                  <StatusBadge status="info">Completed</StatusBadge>
+                  <span className="whitespace-nowrap text-[13px] font-normal leading-none tracking-normal text-slate-500">
+                    {row.settledAt}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </section>

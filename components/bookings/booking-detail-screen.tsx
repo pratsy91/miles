@@ -109,19 +109,19 @@ function BookingDetailScreen({ id }: { id: string }) {
           </span>
         </nav>
 
-        <section className="flex min-h-30 w-full flex-col justify-between gap-4 rounded-lg border border-solid border-slate-200 bg-white p-6 sm:h-30 sm:flex-row sm:items-center">
+        <section className="flex min-h-30 w-full min-w-0 flex-col justify-between gap-4 rounded-lg border border-solid border-slate-200 bg-white p-6 xl:h-30 xl:flex-row xl:items-center">
           <div className="flex min-w-0 items-center gap-5">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-indigo-50">
               <Calendar aria-hidden className="size-6 text-indigo-600" />
             </span>
             <div className="flex min-w-0 flex-col gap-2">
               <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-[22px] font-bold leading-none tracking-normal text-slate-900">
+                <h2 className="min-w-0 text-[22px] font-bold leading-none tracking-normal text-slate-900">
                   Booking {booking.id}
                 </h2>
                 <StatusBadge status={booking.status} />
               </div>
-              <p className="text-[14px] font-normal leading-none tracking-normal text-slate-500">
+              <p className="text-[14px] font-normal leading-5 tracking-normal break-words text-slate-500">
                 {booking.location}
                 <span aria-hidden className="px-1.5">
                   •
@@ -131,7 +131,7 @@ function BookingDetailScreen({ id }: { id: string }) {
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex shrink-0 flex-wrap items-center gap-3">
             <Button
               variant="ghost"
               size="md"
