@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miles
 
-## Getting Started
+Admin console for users, transactions, and bookings.
 
-First, run the development server:
+**Demo:** [https://miles-flax.vercel.app/](https://miles-flax.vercel.app/)
+
+## Setup
+
+Requires Node.js 20+.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Public APIs
 
-## Learn More
+Seed data comes from [DummyJSON](https://dummyjson.com/):
 
-To learn more about Next.js, take a look at the following resources:
+- `GET https://dummyjson.com/users?limit=100`
+- `GET https://dummyjson.com/users/{id}`
+- `GET https://dummyjson.com/carts?limit=50`
+- `GET https://dummyjson.com/products?limit=50`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Users, carts, and products are mapped into the app’s user, transaction, and booking records.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## State management
 
-## Deploy on Vercel
+Redux Toolkit holds UI state only (whether the mobile sidebar is open).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Users, transactions, and bookings live in small client stores. Each store keeps the list in `localStorage` and notifies subscribers when it changes. Screens read them through `useUsers`, `useTransactions`, and `useBookings`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Data fetching
+
+On first load, a store reads `localStorage`. If that list is empty, it fetches DummyJSON, maps the response, and saves it. Later loads use the saved list, so creates, edits, and deletes stick in the browser. A failed fetch shows an error with a retry.

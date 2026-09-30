@@ -246,9 +246,11 @@
   }
 }
 
-/* Dashboard recent transactions: fits the 752px chart column. */
+/* Dashboard recent transactions: shrinkable tracks, same pattern as the other tables. */
 .dashboard-transactions-grid {
-  grid-template-columns: 120px minmax(0, 132px) 80px 96px 100px minmax(32px, 1fr);
+  grid-template-columns:
+    minmax(120px, 140px) minmax(132px, 180px) minmax(100px, 120px)
+    minmax(96px, 110px) minmax(100px, 120px) minmax(56px, 1fr);
 }
 
 @layer base {

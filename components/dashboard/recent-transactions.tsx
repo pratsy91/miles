@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const HEADER_CELL =
-  "text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
+  "whitespace-nowrap text-[12px] font-semibold leading-none tracking-normal text-slate-500 uppercase";
 
 const PAGE_SIZE = 4;
 const MOBILE_COUNT = 3;
@@ -144,7 +144,7 @@ function RecentTransactions() {
         ) : null}
 
         <div className="w-full overflow-x-auto">
-          <div className="w-full">
+          <div className="w-full min-w-min">
             <div
               role="row"
               className="dashboard-transactions-grid grid min-h-10 items-center gap-4 rounded-md bg-slate-50 px-3"
@@ -184,7 +184,7 @@ function RecentTransactions() {
                   role="row"
                   className="dashboard-transactions-grid grid h-14 items-center gap-4 border-b border-slate-200 px-3"
                 >
-                  <span className="text-[13px] font-semibold leading-none tracking-normal text-slate-900">
+                  <span className="whitespace-nowrap text-[13px] font-semibold leading-none tracking-normal text-slate-900">
                     {transaction.id}
                   </span>
                   <div className="flex min-w-0 items-center gap-3">
@@ -196,12 +196,12 @@ function RecentTransactions() {
                     </p>
                   </div>
                   <span
-                    className={`text-[13px] font-semibold leading-none tracking-normal ${transaction.negative ? "text-error" : "text-slate-900"}`}
+                    className={`whitespace-nowrap text-[13px] font-semibold leading-none tracking-normal ${transaction.negative ? "text-error" : "text-slate-900"}`}
                   >
                     {transaction.amount}
                   </span>
                   <StatusBadge status={transaction.status} />
-                  <span className="text-[13px] font-normal leading-none tracking-normal text-slate-600">
+                  <span className="whitespace-nowrap text-[13px] font-normal leading-none tracking-normal text-slate-600">
                     {formatDashboardDate(transaction.occurredAt)}
                   </span>
                   <Link

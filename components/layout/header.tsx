@@ -208,17 +208,19 @@ function Header() {
       data-slot="header"
       className="hidden h-17.5 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-8 md:flex"
     >
-      <div className="flex flex-col gap-space-4">
-        <h1 className="text-[18px] font-bold leading-none tracking-normal text-slate-900">
+      <div className="flex min-w-0 flex-col gap-space-4">
+        <h1 className="truncate text-[18px] font-bold leading-none tracking-normal text-slate-900">
           {title}
         </h1>
-        <p className="text-[12px] font-normal leading-none tracking-normal text-slate-500">
+        <p className="truncate text-[12px] font-normal leading-none tracking-normal text-slate-500">
           {formatHeaderDate(new Date())}
         </p>
       </div>
 
-      <div className="flex items-center gap-4">
-        <ConsoleSearch />
+      <div className="flex shrink-0 items-center gap-4">
+        <div className="max-[851px]:hidden">
+          <ConsoleSearch />
+        </div>
 
         <NotificationButton className="relative flex size-10 items-center justify-center rounded-[20px] border border-solid border-slate-200 bg-white">
           <Bell aria-hidden className="size-5 text-slate-600" />
